@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='utf-8'?>
+<objectModel 
+ xmlns='http://standards.ieee.org/IEEE1516-2010'
+ xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+ xsi:schemaLocation='http://standards.ieee.org/IEEE1516-2010 http://standards.ieee.org/downloads/1516/1516.2-2010/IEEE1516-DIF-2010.xsd'  >
+	<modelIdentification>
+		<name>Restauracja</name>
+		<type>FOM</type>
+		<version>1.1</version>
+		<modificationDate>27.04.2022</modificationDate>
+		<securityClassification>Confidential</securityClassification>
+		<poc>
+			<pocType/>
+			<pocName>Daniel Woźniak</pocName>
+			<pocOrg>WAT</pocOrg>
+			<pocTelephone/>
+			<pocEmail>daniel.wozniak01@student.wat.edu.pl</pocEmail>
+		</poc>
+		<poc>
+			<pocType/>
+			<pocName>Maciej Żeliszczak</pocName>
+			<pocOrg>WAT</pocOrg>
+			<pocTelephone/>
+			<pocEmail>maciej.zeliszczak@student.wat.edu.pl</pocEmail>
+		</poc>
+	</modelIdentification>
+	<objects>
+		<objectClass>
+			<name>HLAobjectRoot</name>
+			<objectClass>
+				<name>Klient</name>
+				<sharing>PublishSubscribe</sharing>
+				<semantics>Symuluje tworzenie klientów i ustawienia ich w kolejce.</semantics>
+				<attribute>
+					<name>nr_kolejki</name>
+					<dataType>HLAinteger16BE</dataType>
+					<updateType>Conditional</updateType>
+					<updateCondition>On Change</updateCondition>
+					<ownership>Divest</ownership>
+					<sharing>PublishSubscribe</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Miejsce w kolejce</semantics>
+				</attribute>
+				<attribute>
+					<name>pierwsze_danie</name>
+					<dataType>HLAinteger32BE</dataType>
+					<updateType>Static</updateType>
+					<updateCondition>On Change</updateCondition>
+					<ownership>Divest</ownership>
+					<sharing>PublishSubscribe</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Czas spożywania pierwszego dania</semantics>
+				</attribute>
+				<attribute>
+					<name>czy_drygie_danie</name>
+					<dataType>HLAboolean</dataType>
+					<updateType>Conditional</updateType>
+					<updateCondition>On Change</updateCondition>
+					<ownership>Divest</ownership>
+					<sharing>PublishSubscribe</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Chęć drugiego posiłku</semantics>
+				</attribute>
+				<attribute>
+					<name>drugie_danie</name>
+					<dataType>HLAinteger32BE</dataType>
+					<updateType>Conditional</updateType>
+					<updateCondition>On Change</updateCondition>
+					<ownership>Divest</ownership>
+					<sharing>PublishSubscribe</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Czas spożywania drugiego posiłku</semantics>
+				</attribute>
+				<attribute>
+					<name>cierpliwość</name>
+					<dataType>HLAinteger16BE</dataType>
+					<updateType>Static</updateType>
+					<updateCondition>On Change</updateCondition>
+					<ownership>Divest</ownership>
+					<sharing>PublishSubscribe</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Czas, po którym klient zrezygnuje z kolejki</semantics>
+				</attribute>
+			</objectClass>
+			<objectClass>
+				<name>Restauracja</name>
+				<sharing>PublishSubscribe</sharing>
+				<semantics>Symuluje obsługę klientów. Gdy stoliki są wolne kelner zaczyna obsługę klienta podając danie. </semantics>
+				<objectClass>
+					<name>Stolik</name>
+					<sharing>Publish</sharing>
+					<attribute>
+						<name>nr_stolika</name>
+						<dataType>HLAinteger16BE</dataType>
+						<updateType>Static</updateType>
+						<updateCondition>On Change</updateCondition>
+						<ownership>Divest</ownership>
+						<sharing>PublishSubscribe</sharing>
+						<transportation>HLAbestEffort</transportation>
+						<order>Receive</order>
+						<semantics>Numer stolika
+</semantics>
+					</attribute>
+					<attribute>
+						<name>dostepnosc_stolika</name>
+						<dataType>HLAboolean</dataType>
+						<updateType>Conditional</updateType>
+						<updateCondition>On Change</updateCondition>
+						<ownership>Divest</ownership>
+						<sharing>PublishSubscribe</sharing>
+						<transportation>HLAbestEffort</transportation>
+						<order>Receive</order>
+						<semantics>Dostepnosc stolika</semantics>
+					</attribute>
+				</objectClass>
+				<objectClass>
+					<name>Kelner</name>
+					<sharing>Publish</sharing>
+					<attribute>
+						<name>dostepnosc_kelnera</name>
+						<dataType>HLAboolean</dataType>
+						<updateType>Conditional</updateType>
+						<updateCondition>On Change</updateCondition>
+						<ownership>Divest</ownership>
+						<sharing>PublishSubscribe</sharing>
+						<transportation>HLAbestEffort</transportation>
+						<order>Receive</order>
+						<semantics>Czy kelner aktualnie kogos obsluguje</semantics>
+					</attribute>
+					<attribute>
+						<name>czas_realizacji</name>
+						<dataType>HLAinteger32BE</dataType>
+						<updateType>Conditional</updateType>
+						<updateCondition>On Change</updateCondition>
+						<ownership>Divest</ownership>
+						<sharing>PublishSubscribe</sharing>
+						<transportation>HLAbestEffort</transportation>
+						<order>Receive</order>
+						<semantics>Czas realizacji zamowienia klienta</semantics>
+					</attribute>
+				</objectClass>
+			</objectClass>
+			<objectClass>
+				<name>Statystyka</name>
+				<sharing>PublishSubscribe</sharing>
+				<semantics>Zbiera informacje</semantics>
+				<attribute>
+					<name>Sredni_czas</name>
+					<dataType>HLAfloat32BE</dataType>
+					<updateType>Conditional</updateType>
+					<updateCondition>On Change</updateCondition>
+					<ownership>Divest</ownership>
+					<sharing>PublishSubscribe</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Sredni czas oczekiwania na stolik</semantics>
+				</attribute>
+			</objectClass>
+		</objectClass>
+	</objects>
+	<interactions>
+		<interactionClass>
+			<name>HLAinteractionRoot</name>
+			<interactionClass>
+				<name>Klient</name>
+				<sharing>PublishSubscribe</sharing>
+				<transportation>HLAbestEffort</transportation>
+				<order>Receive</order>
+				<semantics>Obsluga klientow</semantics>
+				<interactionClass>
+					<name>Zwieksz_kolejke</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Klient dolacza do kolejki</semantics>
+					<parameter>
+						<name>nr_kolejki</name>
+						<dataType>HLAinteger16BE</dataType>
+						<semantics>Nr_kolejki, do której wchodzi klient</semantics>
+					</parameter>
+					<parameter>
+						<name>dlugosc</name>
+						<dataType>HLAinteger32BE</dataType>
+						<semantics>Aktualna dlugosc kolejki</semantics>
+					</parameter>
+				</interactionClass>
+				<interactionClass>
+					<name>Zmniejsz_kolejke</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Klient wychodzi z kolejki</semantics>
+					<parameter>
+						<name>nr_kolejki</name>
+						<dataType>HLAinteger16BE</dataType>
+						<semantics>Nr kolejki, z której odchodzi klient</semantics>
+					</parameter>
+					<parameter>
+						<name>dlugosc</name>
+						<dataType>HLAinteger32BE</dataType>
+						<semantics>Aktualna dlugosc kolejki</semantics>
+					</parameter>
+				</interactionClass>
+			</interactionClass>
+			<interactionClass>
+				<name>Restauracja</name>
+				<sharing>PublishSubscribe</sharing>
+				<transportation>HLAbestEffort</transportation>
+				<order>Receive</order>
+				<semantics>Obsluga restauracji</semantics>
+				<interactionClass>
+					<name>Zajmij_stolik</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Klient zajmuje stolik</semantics>
+					<parameter>
+						<name>nr_stolika</name>
+						<dataType>HLAinteger16BE</dataType>
+						<semantics>Numer zajmowanego stolika</semantics>
+					</parameter>
+					<parameter>
+						<name>dostepnosc_stolika</name>
+						<dataType>HLAboolean</dataType>
+						<semantics>Dostepnosc zajmowanego stolika</semantics>
+					</parameter>
+				</interactionClass>
+				<interactionClass>
+					<name>Zwolnij_stolik</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Klient zwalnia stolik</semantics>
+					<parameter>
+						<name>nr_stolika</name>
+						<dataType>HLAinteger16BE</dataType>
+						<semantics>Numer zwalnianego stolika</semantics>
+					</parameter>
+					<parameter>
+						<name>dostepnosc_stolika</name>
+						<dataType>HLAboolean</dataType>
+						<semantics>Dostepnosc zwalnianego stolika</semantics>
+					</parameter>
+				</interactionClass>
+				<interactionClass>
+					<name>Obsluga_kelnera</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Kelner zostaje przypisany do obslugi stolika</semantics>
+					<parameter>
+						<name>dostepnosc_kelnera</name>
+						<dataType>HLAboolean</dataType>
+						<semantics>Dostepnosc kelnera przypisanego do obslugi</semantics>
+					</parameter>
+					<parameter>
+						<name>czas_realizacji</name>
+						<dataType>HLAinteger32BE</dataType>
+						<semantics>Czas realizacji zamówienia</semantics>
+					</parameter>
+				</interactionClass>
+			</interactionClass>
+			<interactionClass>
+				<name>GUI</name>
+				<sharing>PublishSubscribe</sharing>
+				<transportation>HLAbestEffort</transportation>
+				<order>Receive</order>
+				<interactionClass>
+					<name>Start</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Rozpoczyna symulacje</semantics>
+				</interactionClass>
+				<interactionClass>
+					<name>Stop</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Pauzuje symulacje</semantics>
+				</interactionClass>
+				<interactionClass>
+					<name>Zakoncz</name>
+					<sharing>Publish</sharing>
+					<transportation>HLAbestEffort</transportation>
+					<order>Receive</order>
+					<semantics>Konczy symulacje</semantics>
+				</interactionClass>
+			</interactionClass>
+		</interactionClass>
+	</interactions>
+	<dimensions/>
+	<synchronizations/>
+	<transportations/>
+	<updateRates/>
+	<dataTypes>
+		<basicDataRepresentations/>
+		<simpleDataTypes/>
+		<enumeratedDataTypes/>
+		<arrayDataTypes/>
+		<fixedRecordDataTypes/>
+		<variantRecordDataTypes/>
+	</dataTypes>
+	<notes/>
+</objectModel>
