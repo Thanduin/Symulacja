@@ -201,7 +201,7 @@
 					</parameter>
 					<parameter>
 						<name>id_klienta</name>
-						<dataType>HLAinteger16BE</dataType>
+						<dataType>HLAinteger32BE</dataType>
 						<semantics>id_klienta wchodzącego do kolejki</semantics>
 					</parameter>
 				</interactionClass>
@@ -223,7 +223,7 @@
 					</parameter>
 					<parameter>
 						<name>id_klienta</name>
-						<dataType>HLAinteger16BE</dataType>
+						<dataType>HLAinteger32BE</dataType>
 						<semantics>Id klienta wychodzącego z kolejki</semantics>
 					</parameter>
 				</interactionClass>
@@ -252,7 +252,7 @@
 					</parameter>
 					<parameter>
 						<name>id_klienta</name>
-						<dataType>HLAinteger16BE</dataType>
+						<dataType>HLAinteger32BE</dataType>
 						<semantics>Id klienta zajmującego stolik</semantics>
 					</parameter>
 				</interactionClass>
@@ -274,7 +274,7 @@
 					</parameter>
 					<parameter>
 						<name>id_klienta</name>
-						<dataType>HLAinteger16BE</dataType>
+						<dataType>HLAinteger32BE</dataType>
 						<semantics>Id klienta zwalniającego stolik</semantics>
 					</parameter>
 				</interactionClass>
@@ -296,7 +296,7 @@
 					</parameter>
 					<parameter>
 						<name>id_klienta</name>
-						<dataType>HLAinteger16BE</dataType>
+						<dataType>HLAinteger32BE</dataType>
 						<semantics>Id klienta obsługiwanego przez kelnera</semantics>
 					</parameter>
 					<parameter>

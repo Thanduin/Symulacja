@@ -2,6 +2,7 @@ package Klient;
 
 import hla.rti1516e.*;
 import hla.rti1516e.encoding.EncoderFactory;
+import hla.rti1516e.encoding.HLAinteger16BE;
 import hla.rti1516e.encoding.HLAinteger32BE;
 import hla.rti1516e.exceptions.FederatesCurrentlyJoined;
 import hla.rti1516e.exceptions.FederationExecutionAlreadyExists;
@@ -34,8 +35,8 @@ public class KlientFederate
     // caches of handle types - set once we join a federation
     protected ObjectClassHandle stolikHandle;
     protected AttributeHandle stolikAvailableHandle;
-    protected InteractionClassHandle wejdzKolejkaHandle;
 
+    protected InteractionClassHandle idKlientaHandle;
     protected InteractionClassHandle zajmijStolikHandle;
     protected InteractionClassHandle zwolnijStolikHandle;
 
@@ -188,22 +189,26 @@ public class KlientFederate
         // update the attribute values of the object we registered, and will
         // send an interaction.
         int i = 1;
+        int j = 1;
         while( fedamb.isRunning )
         {
-            Klient Klient = new Klient(i);
+            Klient Klient = new Klient(i, j);
             i++;
+            j++;
             int producedValue = Klient.wejdzKolejka();
             ParameterHandleValueMap parameterHandleValueMap = rtiamb.getParameterHandleValueMapFactory().create(1);
-//            ParameterHandle wejdzKolejkaDlugoscHandle = rtiamb.getParameterHandle(wejdzKolejkaHandle, "dlugosc");
-//            HLAinteger32BE dlugosc = encoderFactory.createHLAinteger32BE(producedValue);
-           // parameterHandleValueMap.put(wejdzKolejkaDlugoscHandle, dlugosc.toByteArray());
+            ParameterHandle idKlientaHandleNumer = rtiamb.getParameterHandle(idKlientaHandle, "id_klienta");
+            HLAinteger32BE id_klienta = encoderFactory.createHLAinteger32BE(producedValue);
+            parameterHandleValueMap.put(idKlientaHandleNumer, id_klienta.toByteArray());
             if(stolikAvaiable  != true ) {
+
                 rtiamb.sendInteraction(zajmijStolikHandle, parameterHandleValueMap, generateTag());
             }
             else
             {
-                log("Stolik zajety.");
                 rtiamb.sendInteraction(zwolnijStolikHandle, parameterHandleValueMap, generateTag());
+                log("Stolik zajety.");
+
             }
             // 9.3 request a time advance and wait until we get it
             advanceTime(1);
@@ -304,8 +309,8 @@ public class KlientFederate
         // do the publication
         rtiamb.publishInteractionClass(zajmijStolikHandle);
 
-        iname = "HLAinteractionRoot.Restauracja.Zwolnij_stolik";
-        zwolnijStolikHandle = rtiamb.getInteractionClassHandle(iname);
+        String iname2 = "HLAinteractionRoot.Restauracja.Zwolnij_stolik";
+        zwolnijStolikHandle = rtiamb.getInteractionClassHandle(iname2);
         rtiamb.publishInteractionClass(zwolnijStolikHandle);
 
     }

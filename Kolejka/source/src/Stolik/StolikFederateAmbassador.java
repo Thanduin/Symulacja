@@ -256,25 +256,25 @@ public class StolikFederateAmbassador extends NullFederateAmbassador
             if(parameter.equals(federate.nrStolikaHandle))
             {
                 builder.append( "\tCOUNT PARAM!" );
-                byte[] bytes = theParameters.get(federate.stolikHandle);
+                //byte[] bytes = theParameters.get(federate.stolikHandle);
                 byte[] bytes2 = theParameters.get(federate.stolikHandle);
-                HLAinteger16BE nr_stolika = new HLA1516eInteger16BE();
+               // HLAinteger16BE nr_stolika = new HLA1516eInteger16BE();
                 HLAinteger16BE id_klienta = new HLA1516eInteger16BE();
                 try {
-                    nr_stolika.decode(bytes);
+                    //nr_stolika.decode(bytes);
                     id_klienta.decode(bytes2);
                 } catch (DecoderException e) {
                     e.printStackTrace();
                 }
-                int nrValue = nr_stolika.getValue();
+                //int nrValue = nr_stolika.getValue();
                 int idValue = id_klienta.getValue();
                 if( interactionClass.equals(federate.zajmijStolikHandle) )
                 {
-                    Stolik.getInstance().zajmij_stolik(nrValue, idValue);
+                    Stolik.getInstance().zajmij_stolik(1, idValue);
                 }
                 else if( interactionClass.equals(federate.zwolnijStolikHandle) )
                 {
-                    Stolik.getInstance().zwolnij_stolik(nrValue, idValue);
+                    Stolik.getInstance().zwolnij_stolik(1, idValue);
                 }
 
 

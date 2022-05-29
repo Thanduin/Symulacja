@@ -1,7 +1,7 @@
 package Stolik;
 
 public class Stolik {
-    int nr_stolika;
+    int nr_stolika = 1;
     boolean dostepnosc_stolika = true;
 
     private static Stolik instance = null;

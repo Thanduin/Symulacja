@@ -45,7 +45,6 @@ public class StolikFederate
     protected AttributeHandle stolikAvailableHandle;
     protected InteractionClassHandle zajmijStolikHandle;
     protected InteractionClassHandle zwolnijStolikHandle;
-    protected InteractionClassHandle getProductsHandle;
     protected ParameterHandle nrStolikaHandle;
 
     //----------------------------------------------------------
