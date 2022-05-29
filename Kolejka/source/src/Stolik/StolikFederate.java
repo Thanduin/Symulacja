@@ -44,6 +44,7 @@ public class StolikFederate
     protected ObjectClassHandle stolikHandle;
     protected AttributeHandle stolikAvailableHandle;
     protected InteractionClassHandle zajmijStolikHandle;
+    protected InteractionClassHandle zwolnijStolikHandle;
     protected InteractionClassHandle getProductsHandle;
     protected ParameterHandle nrStolikaHandle;
 
@@ -210,14 +211,16 @@ public class StolikFederate
             attributes.put( stolikAvailableHandle, availableValue.toByteArray() );
 
             rtiamb.updateAttributeValues( objectHandle, attributes, generateTag() );
-            if(fedamb.federateTime<25) {
-                advanceTime(1);
-                log( "Time Advanced to " + fedamb.federateTime );
-            }
-            else
-            {
-                fedamb.isRunning=false;
-            }
+            advanceTime(1);
+            log( "Time Advanced to " + fedamb.federateTime );
+//            if(fedamb.federateTime<25) {
+//                advanceTime(1);
+//                log( "Time Advanced to " + fedamb.federateTime );
+//            }
+//            else
+//            {
+//                fedamb.isRunning=false;
+//            }
 
         }
 
@@ -317,9 +320,9 @@ public class StolikFederate
 
         // subscribe for GetProducts interaction
         iname = "HLAinteractionRoot.Restauracja.Zwolnij_stolik";
-        getProductsHandle = rtiamb.getInteractionClassHandle( iname );
+        zwolnijStolikHandle = rtiamb.getInteractionClassHandle( iname );
         //nrStolikaHandle = rtiamb.getParameterHandle(rtiamb.getInteractionClassHandle( "HLAinteractionRoot.Restauracja" ), "nr_stolika");
-        rtiamb.subscribeInteractionClass(getProductsHandle);
+        rtiamb.subscribeInteractionClass(zwolnijStolikHandle);
     }
 
     /**

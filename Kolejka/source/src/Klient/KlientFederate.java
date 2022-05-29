@@ -37,6 +37,7 @@ public class KlientFederate
     protected InteractionClassHandle wejdzKolejkaHandle;
 
     protected InteractionClassHandle zajmijStolikHandle;
+    protected InteractionClassHandle zwolnijStolikHandle;
 
     protected boolean stolikAvaiable = false;
     //----------------------------------------------------------
@@ -202,16 +203,19 @@ public class KlientFederate
             else
             {
                 log("Stolik zajety.");
+                rtiamb.sendInteraction(zwolnijStolikHandle, parameterHandleValueMap, generateTag());
             }
             // 9.3 request a time advance and wait until we get it
-            if(fedamb.federateTime<25) {
-                advanceTime(1);
-                log( "Time Advanced to " + fedamb.federateTime );
-            }
-            else
-            {
-                fedamb.isRunning=false;
-            }
+            advanceTime(1);
+            log( "Time Advanced to " + fedamb.federateTime );
+//            if(fedamb.federateTime<25) {
+//                advanceTime(1);
+//                log( "Time Advanced to " + fedamb.federateTime );
+//            }
+//            else
+//            {
+//                fedamb.isRunning=false;
+//            }
         }
 
 
@@ -299,6 +303,10 @@ public class KlientFederate
         zajmijStolikHandle = rtiamb.getInteractionClassHandle( iname );
         // do the publication
         rtiamb.publishInteractionClass(zajmijStolikHandle);
+
+        iname = "HLAinteractionRoot.Restauracja.Zwolnij_stolik";
+        zwolnijStolikHandle = rtiamb.getInteractionClassHandle(iname);
+        rtiamb.publishInteractionClass(zwolnijStolikHandle);
 
     }
     /**

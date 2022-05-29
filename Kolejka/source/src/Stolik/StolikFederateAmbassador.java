@@ -233,7 +233,7 @@ public class StolikFederateAmbassador extends NullFederateAmbassador
         {
             builder.append( " (zajmij_stolik)" );
         }
-        else if( interactionClass.equals(federate.getProductsHandle) )
+        else if( interactionClass.equals(federate.zwolnijStolikHandle) )
         {
             builder.append( " (zwolnij_stolik)" );
         }
@@ -272,7 +272,7 @@ public class StolikFederateAmbassador extends NullFederateAmbassador
                 {
                     Stolik.getInstance().zajmij_stolik(nrValue, idValue);
                 }
-                else if( interactionClass.equals(federate.getProductsHandle) )
+                else if( interactionClass.equals(federate.zwolnijStolikHandle) )
                 {
                     Stolik.getInstance().zwolnij_stolik(nrValue, idValue);
                 }
